@@ -23,6 +23,7 @@
                     <td>{{ recipe.id }}</td>
                     <td>{{ recipe.title }}</td>
                     <td>{{ recipe.createdAt | date('d-m-y') }}</td>
+                    <td><img width="200" src="{{ asset('assets/uploads/' ~ recipe.image) }}"></td>
                 </tr>
             {% endfor %}
             </tbody>

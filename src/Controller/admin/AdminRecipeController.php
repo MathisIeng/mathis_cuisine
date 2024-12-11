@@ -7,6 +7,7 @@ use App\Form\AdminRecipeType;
 use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -14,7 +15,7 @@ class AdminRecipeController extends AbstractController
 {
 
     #[Route('/admin/create/recipe', name: 'admin_create_recipe', methods: ['GET', 'POST'])]
-    public function createRecipe(Request $request, EntityManagerInterface $entityManager) {
+    public function createRecipe(Request $request, EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag) {
 
         // J'instancie une nouvelle class Recipe
         $recipe = new Recipe();
@@ -31,13 +32,43 @@ class AdminRecipeController extends AbstractController
         // La main sur la date aux user du site
         if ($adminRecipeForm->isSubmitted()) {
 
+            // On pense pour les images à installer
+            // composer require symfony/mime
+
+            // Je récupère le fichier envoyé dans le champ image du formulaire
+            $recipeImage = $adminRecipeForm->get('image')->getData();
+
+            // Si il y a bien une image envoyée
+            if ($recipeImage) {
+
+                // Je génère un nom unique avec uniqid pour l'image
+                $imageNewName = uniqid() . '.' . $recipeImage->guessExtension();
+
+                // Récupère le chemin racine du projet Symfony grâce à parameterBag
+                $rootDir = $parameterBag->get('kernel.project_dir');
+                // Définit le répertoire de destination pour les fichiers uploadés
+                // Ici, les fichiers seront stockés dans `public/assets/uploads`
+                $uploadDir = $rootDir . '/public/assets/uploads';
+
+                // Je déplace mon image dans le dossier uploads et je la renomme
+                // avec le nom unique
+                $recipeImage->move($uploadDir, $imageNewName);
+
+                // Je stocke dans l'entity
+                $recipe->setImage($imageNewName);
+                }
+
             // Si le formulaire est bien soumis, on sauvegarde les données avec persist
             $entityManager->persist($recipe);
             // Et on envoie tout dans le base de donnée
             $entityManager->flush();
 
             $this->addFlash('success', 'Recette bien crée !');
+
+            return $this->redirectToRoute('admin/recipe/list.html.twig');
         }
+
+
 
         $formView = $adminRecipeForm->createView();
 
