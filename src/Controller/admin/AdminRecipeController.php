@@ -29,6 +29,7 @@ class AdminRecipeController extends AbstractController
         // Qui entrera le DateTime qu'on a enlever du form pour pas laisser
         // La main sur la date aux user du site
         if ($adminRecipeForm->isSubmitted()) {
+            $this->addFlash('success', 'Recette bien crée !');
             // Si le formulaire est bien soumis, on sauvegarde les données avec persist
             $entityManager->persist($recipe);
             // Et on envoie tout dans le base de donnée
