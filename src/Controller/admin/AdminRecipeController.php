@@ -4,6 +4,7 @@ namespace App\Controller\admin;
 
 use App\Entity\Recipe;
 use App\Form\AdminRecipeType;
+use App\Repository\RecipeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,17 +30,32 @@ class AdminRecipeController extends AbstractController
         // Qui entrera le DateTime qu'on a enlever du form pour pas laisser
         // La main sur la date aux user du site
         if ($adminRecipeForm->isSubmitted()) {
-            $this->addFlash('success', 'Recette bien crée !');
+
             // Si le formulaire est bien soumis, on sauvegarde les données avec persist
             $entityManager->persist($recipe);
             // Et on envoie tout dans le base de donnée
             $entityManager->flush();
+
+            $this->addFlash('success', 'Recette bien crée !');
         }
 
         $formView = $adminRecipeForm->createView();
 
         return $this->render('admin/recipe/create.html.twig', [
             'formView' => $formView,
+        ]);
+
+    }
+
+    #[Route('/admin/recipes/list', name: 'admin_recipes_list', methods: ['GET'])]
+    public function listRecipes(RecipeRepository $recipeRepository) {
+
+       // dd('test');
+        // On viens récupérer grâce au repo toutes les recettes et on les affiche dans la vue
+        $recipes = $recipeRepository->findAll();
+
+        return $this->render('admin/recipe/list.html.twig', [
+            'recipes' => $recipes,
         ]);
 
     }
