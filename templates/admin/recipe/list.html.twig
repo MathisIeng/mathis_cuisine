@@ -24,6 +24,7 @@
                     <td>{{ recipe.title }}</td>
                     <td>{{ recipe.createdAt | date('d-m-y') }}</td>
                     <td><img width="200" src="{{ asset('assets/uploads/' ~ recipe.image) }}"></td>
+                    <td><a class="btn btn-danger btn-sm" href="{{ path('admin_recipe_delete', {'id' : recipe.id}) }}">Delete</a></td>
                 </tr>
             {% endfor %}
             </tbody>

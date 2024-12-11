@@ -15,7 +15,8 @@ class AdminRecipeController extends AbstractController
 {
 
     #[Route('/admin/create/recipe', name: 'admin_create_recipe', methods: ['GET', 'POST'])]
-    public function createRecipe(Request $request, EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag) {
+    public function createRecipe(Request $request, EntityManagerInterface $entityManager, ParameterBagInterface $parameterBag)
+    {
 
         // J'instancie une nouvelle class Recipe
         $recipe = new Recipe();
@@ -56,7 +57,7 @@ class AdminRecipeController extends AbstractController
 
                 // Je stocke dans l'entity
                 $recipe->setImage($imageNewName);
-                }
+            }
 
             // Si le formulaire est bien soumis, on sauvegarde les données avec persist
             $entityManager->persist($recipe);
@@ -65,9 +66,8 @@ class AdminRecipeController extends AbstractController
 
             $this->addFlash('success', 'Recette bien crée !');
 
-            return $this->redirectToRoute('admin/recipe/list.html.twig');
+            return $this->redirectToRoute('admin_recipe_list');
         }
-
 
 
         $formView = $adminRecipeForm->createView();
@@ -78,10 +78,11 @@ class AdminRecipeController extends AbstractController
 
     }
 
-    #[Route('/admin/recipes/list', name: 'admin_recipes_list', methods: ['GET'])]
-    public function listRecipes(RecipeRepository $recipeRepository) {
+    #[Route('/admin/recipes/list', name: 'admin_recipe_list', methods: ['GET'])]
+    public function listRecipes(RecipeRepository $recipeRepository)
+    {
 
-       // dd('test');
+        // dd('test');
         // On viens récupérer grâce au repo toutes les recettes et on les affiche dans la vue
         $recipes = $recipeRepository->findAll();
 
@@ -91,4 +92,21 @@ class AdminRecipeController extends AbstractController
 
     }
 
+    #[Route('/admin/recipes/{id}/delete', name: 'admin_recipe_delete', requirements: ['id' => '\d+'])]
+    public function deleteRecipe(int $id, RecipeRepository $recipeRepository, Recipe $recipe, EntityManagerInterface $entityManager)
+    {
+
+        // dd($id);
+
+        $recipe = $recipeRepository->find($id);
+
+        // dd($recipe);
+
+        $entityManager->remove($recipe);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Recette bien supprimer !');
+
+        return $this->redirectToRoute('admin_recipe_list');
+    }
 }
