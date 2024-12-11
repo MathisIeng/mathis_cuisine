@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\public;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class RecipeController extends AbstractController
+class HomeController extends AbstractController
 {
-    #[Route('/recipe', name: 'recipe')]
+    #[Route('/home', name: 'home')]
     public function index(): Response
     {
-        return $this->render('public/recipe/index.html.twig', [
-            'controller_name' => 'RecipeController',
+        return $this->render('public/home/list.html.twig', [
+            'controller_name' => 'HomeController',
         ]);
     }
 }

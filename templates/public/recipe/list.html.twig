@@ -1,0 +1,25 @@
+{% extends "public/base.html.twig" %}
+
+{% block title %}
+    Accueil | Les recettes de Mathis
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Les Recettes de Mathis</h1>
+
+        <div class="row">
+            {% for recipe in recipes %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <img class="card-img-top" src="{{ asset('assets/uploads/' ~ recipe.image) }}" alt="{{ recipe.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ recipe.title }}</h5>
+                            <a href="{{ path('recipe', {id: recipe.id}) }}" class="btn btn-primary w-100">Voir la recette</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

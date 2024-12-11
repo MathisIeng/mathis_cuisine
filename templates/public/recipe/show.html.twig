@@ -1,0 +1,23 @@
+{% extends "public/base.html.twig" %}
+
+{% block title %}
+    Recette | {{ recipe.title }}
+{% endblock %}
+
+{% block body %}
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow">
+                    <img src="{{ asset('assets/uploads/' ~ recipe.image) }}" class="card-img-top" alt="{{ recipe.title }}">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">{{ recipe.title }}</h1>
+                        <p class="card-text">{{ recipe.instructions }}</p>
+                        <p class="text-muted">Catégorie : <span class="badge bg-secondary">{{ recipe.category.title }}</span></p>
+                        <a href="{{ path('recipes') }}" class="btn btn-outline-secondary w-100 mt-3">Retour à la liste</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
