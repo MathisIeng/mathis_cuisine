@@ -15,7 +15,7 @@ class AdminRecipeController extends AbstractController
 
         $recipe = new Recipe();
 
-        $adminRecipeForm = $this->createForm(AdminRecipeType::class);
+        $adminRecipeForm = $this->createForm(AdminRecipeType::class, $recipe);
 
         $formView = $adminRecipeForm->createView();
 
