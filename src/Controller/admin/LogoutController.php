@@ -10,8 +10,7 @@ class LogoutController extends AbstractController
     #[Route('/admin/logout', 'logout')]
     public function logout()
     {
-        // cette route est utilisée par symfony
-        // dans le security.yaml
-        // pour gérer la deconnexion
+        // Route gérée par Symfony via le fichier security.yaml
+        // pour effectuer la déconnexion
     }
 }
