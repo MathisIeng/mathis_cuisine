@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -14,6 +15,13 @@ class Recipe
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 5,
+        max: 30,
+        minMessage: 'Le titre ne doit pas faire moins de 5 caractères',
+        maxMessage: 'Le titre ne doit pas faire plus de 10 caractères',
+    )]
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
@@ -23,9 +31,11 @@ class Recipe
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $instructions = null;
 
+    #[Assert\NotBlank]
     #[ORM\Column(length: 255)]
     private ?string $ingredients = null;
 
@@ -33,6 +43,7 @@ class Recipe
     private ?Category $category = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?bool $isPublished = null;
 
     public function __construct()

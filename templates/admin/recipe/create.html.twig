@@ -8,6 +8,61 @@
 
 {% block body %}
 
-    {{ form(formView) }}
+    {{ form_start(formView) }}
+
+    <div>
+        {{ form_label(formView.title) }}
+        {{ form_widget(formView.title) }}
+        <div class="text-danger">
+            {{ form_errors(formView.title) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(formView.image) }}
+        {{ form_widget(formView.image) }}
+        <div class="text-danger">
+            {{ form_errors(formView.image) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(formView.ingredients) }}
+        {{ form_widget(formView.ingredients) }}
+        <div class="text-danger">
+            {{ form_errors(formView.ingredients) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(formView.instructions) }}
+        {{ form_widget(formView.instructions) }}
+        <div class="text-danger">
+            {{ form_errors(formView.instructions) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(formView.category) }}
+        {{ form_widget(formView.category) }}
+        <div class="text-danger">
+            {{ form_errors(formView.category) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(formView.isPublished) }}
+        {{ form_widget(formView.isPublished) }}
+        <div class="text-danger">
+            {{ form_errors(formView.isPublished) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_widget(formView.submit) }}
+    </div>
+
+    {{ form_end(formView) }}
+
 
 {% endblock body %}

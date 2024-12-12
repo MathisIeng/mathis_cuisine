@@ -31,7 +31,7 @@ class AdminRecipeController extends AbstractController
         // On oublie pas de mettre dans l'entity Recipe une méthode constructeur
         // Qui entrera le DateTime qu'on a enlever du form pour pas laisser
         // La main sur la date aux user du site
-        if ($adminRecipeForm->isSubmitted()) {
+        if ($adminRecipeForm->isSubmitted() && $adminRecipeForm->isValid()) {
 
             // On pense pour les images à installer
             // composer require symfony/mime
