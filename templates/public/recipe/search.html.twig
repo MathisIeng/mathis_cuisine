@@ -1,12 +1,14 @@
 {% extends "public/base.html.twig" %}
 
 {% block title %}
-    Accueil | Les Recettes de Mathis
+    Recherche pour {{ search }} | Les recettes de Mathis
 {% endblock %}
 
 {% block body %}
     <div class="container my-5">
         <h1 class="text-center mb-4">Les Recettes de Mathis</h1>
+
+        <h2 class="mb-4">Vos résultats pour "{{ search }}"</h2>
 
         <div class="row">
             {% for recipe in recipes %}

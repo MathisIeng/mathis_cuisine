@@ -16,28 +16,21 @@ class RecipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Recipe::class);
     }
 
-    //    /**
-    //     * @return Recipe[] Returns an array of Recipe objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function findBySearchInTitle(string $search): array {
+        // Initialise un QueryBuilder pour la table 'recipe'
+        $queryBuilder = $this->createQueryBuilder('recipe');
 
-    //    public function findOneBySomeField($value): ?Recipe
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        // Crée une requête pour sélectionner les recettes
+        $query = $queryBuilder->select('recipe')
+            // Ajoute une condition pour chercher dans le titre
+            ->where('recipe.title LIKE :search')
+            // Définit la valeur du paramètre de recherche
+            ->setParameter('search', '%'.$search.'%')
+            // Génère la requête finale
+            ->getQuery();
+
+        // Retourne les résultats de la requête
+        return $query->getResult();
+    }
+
 }

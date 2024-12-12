@@ -42,6 +42,7 @@ class AdminRecipeType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],
             ])
+            ->add('isPublished')
         ;
     }
 
