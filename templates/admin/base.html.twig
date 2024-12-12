@@ -23,7 +23,13 @@
                         <a class="nav-link active" href="{{ path('admin_create_recipe') }}">Créer une recette</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin_recipe_list') }}">Liste des recettes</a>
+                        <a class="nav-link" href="{{ path('admin_recipe_list') }}">Gérer des recettes</a>
+                    </li>
+                   {# On ajoute un lien qui permet de se déconnecter pour cela on a crée un controller
+                    Depuis admin dans src qui est vide et sans security.yaml on a ajouter  logout:
+                    path: logout #}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
                     </li>
                 </ul>
             </div>
