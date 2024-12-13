@@ -10,6 +10,7 @@
                 <th scope="col">ID</th>
                 <th scope="col">Email</th>
                 <th scope="col">Roles</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                             <span class="badge bg-primary">{{ role }}</span>
                         {% endfor %}
                     </td>
+                    <td><a class="btn btn-danger" href="{{ path('admin_delete', {id: user.id}) }}">Delete</a></td>
                 </tr>
             {% endfor %}
             </tbody>

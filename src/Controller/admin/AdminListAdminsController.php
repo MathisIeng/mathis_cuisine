@@ -47,8 +47,6 @@ class AdminListAdminsController extends AbstractController
                 $password
             );
             $user->setPassword($hashedPassword);
-            // On ajoute le rôle
-            $user->setRoles(['ROLE_ADMIN']);
 
             // Enregistrement en base de données
             $entityManager->persist($user);
@@ -60,5 +58,19 @@ class AdminListAdminsController extends AbstractController
         return $this->render('admin/create_user.html.twig', [
             'userForm' => $userForm->createView()
         ]);
+    }
+
+
+    #[Route('/admin/delete/{id}', name: 'admin_delete')]
+    public function deleteUser(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager) {
+
+        // Je récupère le user grâce à son id
+        $user = $userRepository->find($id);
+        // Je supprime l'user en question
+        $entityManager->remove($user);
+        // J'envoie l'info en bdd
+        $entityManager->flush();
+
+        return $this->redirectToRoute('admin_list_admins');
     }
 }
