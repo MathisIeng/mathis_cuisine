@@ -34,7 +34,11 @@ class AdminRecipeType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'form_label'],
             ])
-            ->add('ingredients')
+            ->add('ingredients', TextType::class, [
+                'label' => 'Ingredients',
+                'attr' => ['class' => 'form-control'],
+                'label_attr' => ['class' => 'form_label'],
+            ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'title',
