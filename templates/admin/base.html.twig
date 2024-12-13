@@ -37,6 +37,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('logout') }}">Se déconnecter</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_update', {id: app.user.id}) }}">{{ app.user.email }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ path('admin_create_category') }}">Créer une catégorie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_list_categories') }}">Gérer des catégories</a>
+                    </li>
                 </ul>
             </div>
         </div>

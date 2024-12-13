@@ -23,7 +23,11 @@
                             <span class="badge bg-primary">{{ role }}</span>
                         {% endfor %}
                     </td>
-                    <td><a class="btn btn-danger" href="{{ path('admin_delete', {id: user.id}) }}">Delete</a></td>
+                    <td>
+                        <a class="btn btn-danger" href="{{ path('admin_delete', {id: user.id}) }}">Delete</a>
+                        <a class="btn btn-success" href="{{ path('admin_update', {id: user.id}) }}">Update</a>
+                    </td>
+
                 </tr>
             {% endfor %}
             </tbody>

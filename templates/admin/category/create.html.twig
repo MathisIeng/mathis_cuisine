@@ -1,0 +1,18 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block metatitle %}
+
+    Création de recette | Admin
+
+{% endblock metatitle %}
+
+{% block body %}
+
+    {{ form_start(categoryForm) }}
+
+    {{ form_widget(categoryForm) }}
+
+    {{ form_end(categoryForm) }}
+
+
+{% endblock body %}

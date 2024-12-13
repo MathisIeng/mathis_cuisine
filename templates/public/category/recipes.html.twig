@@ -1,12 +1,10 @@
-{% extends "public/base.html.twig" %}
-
-{% block title %}
-    Accueil | Les Recettes de Mathis
-{% endblock %}
+{% extends 'public/base.html.twig' %}
 
 {% block body %}
+    <h1>Recettes pour la catégorie : {{ category.title }}</h1>
+
     <div class="container my-5">
-        <h1 class="text-center mb-4">Les Recettes de Mathis</h1>
+        <h1 class="text-center mb-4">Les Recettes de Mathis par catégorie</h1>
 
         <div class="row">
             {% for recipe in recipes %}
@@ -15,11 +13,6 @@
                         <img class="card-img-top" src="{{ asset('assets/uploads/' ~ recipe.image) }}" alt="{{ recipe.title }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ recipe.title }}</h5>
-                            <p>Catégorie :
-                                <a class="btn btn-warning" href="{{ path('category_recipes', {id: recipe.category.id}) }}">
-                                    {{ recipe.category.title }}
-                                </a>
-                            </p>
                             <a href="{{ path('recipe', {id: recipe.id}) }}" class="btn btn-primary w-100">Voir la recette</a>
                         </div>
                     </div>
@@ -27,4 +20,6 @@
             {% endfor %}
         </div>
     </div>
+
+    <a class="btn btn-outline-secondary w-100 mt-3" href="{{ path('recipes') }}">Retour à la liste des recettes</a>
 {% endblock %}

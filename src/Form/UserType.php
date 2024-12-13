@@ -36,6 +36,7 @@ class UserType extends AbstractType
                 'attr' => ['class' => 'form-control'],
                 'label_attr' => ['class' => 'form_label'],
                 'mapped' => false,
+                'required' => false,
             ])
         ;
     }

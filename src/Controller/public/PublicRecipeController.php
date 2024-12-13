@@ -2,6 +2,7 @@
 
 namespace App\Controller\public;
 
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,5 +51,20 @@ class PublicRecipeController extends AbstractController
             'recipes' => $recipes, 'search' => $search
         ]);
     }
+
+    #[Route('/category/{id}', name: 'category_recipes')]
+    public function recipesByCategory(int $id, CategoryRepository $categoryRepository)
+    {
+        // Récupère la catégorie selon l'id
+        $category = $categoryRepository->find($id);
+        // Récupère les recettes associées à la catégorie
+        $recipes = $category->getRecipes();
+
+        return $this->render('public/category/recipes.html.twig', [
+            'category' => $category,
+            'recipes' => $recipes,
+        ]);
+    }
+
 
 }
